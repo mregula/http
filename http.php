@@ -88,6 +88,7 @@
 
 				// This disables cURL's default 100-continue expectation
 				if ('POST' == $method) $request_headers[] = 'Expect:';
+                if ('PUT' == $method) $request_headers[] = 'Content-Length: 0';
 
 				if (is_array($payload))
 				{
