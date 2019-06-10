@@ -128,7 +128,13 @@
 			$response_headers = array();
 
 			$header_lines = preg_split("/\r\n|\n|\r/", $last_response_header_lines);
-			list(, $response_headers['http_status_code'], $response_headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), 3);
+		    	$responseArr = explode(' ', trim(array_shift($header_lines)), 3);
+		    	$responseArrLength = count($responseArr);
+		    	if ($responseArrLength < 3) {
+				list($response_headers['http_status_code'], $response_headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), $responseArrLength);
+		    	} else {
+				list(, $response_headers['http_status_code'], $response_headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), 3);
+		    	}
 			foreach ($header_lines as $header_line)
 			{
 				list($name, $value) = explode(':', $header_line, 2);
